@@ -205,7 +205,7 @@ Fill out the details of particular device.
   <img src="monitor/add_user/2.png" width="80%" />
 </p>
 
-* Information that gathered by NMS from Deviced
+* Information that gathered by NMS from Devices.
 <p align="center">
   <img src="monitor/info/1.png" width="49%" />
  <img src="monitor/info/2.png" width="49%" />
