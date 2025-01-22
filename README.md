@@ -1,11 +1,33 @@
 
 # LAN-network-for-SY-BCAS-Institute
+# Table of Contents
 
+1. [Introduction](#introduction)
+2. [Network Design](#network-design)
+3. [Used Hardwares](#used-hardwares)
+    - [Routers](#routers)
+    - [Switches](#switches)
+    - [Servers](#servers)
+5. [Network Device Configurations](#network-device-configurations)
+    - [Router Configuration](#router-configuration)
+    - [Switch Configuration](#switch-configuration)
+6. [Network Monitor Tool Deployment](#network-monitoring-tool-deployment)
+7. [Troubleshooting LAN and WAN Connectivity Issues](#troubleshooting-lan-and-wan-connectivity-issues)
+8. [Documentation of Troubleshooting Methods](#documentation-of-troubleshooting-methods)
+9. [Evaluating Troubleshooting Methods for Enterprise-Wide Networking Issues](#evaluating-troubleshooting-methods-for-enterprise-wide-networking-issues)
+10. [Server Configuration](#server-configuration)
+    - [Setting Up Windows Server 2019 for Active Directory, DNS and DHCP.](#setting-up-windows-server-2019-for-active-directory-dns-and-dhcp)
+    - [Promoting Windows Server 2019 as Domain Controller](#promoting-windows-server-2019-as-domain-controller)
+    - [Active Directory](#active-directory)
+    - [DNS Server Configuration](#dns-server-configuration)
+    - [DHCP Derver Configuration](#dhcp-server-configuration)
+
+# Introduction
  <div align="justify"> Designing a Local Area Network (LAN) for the SY-BCAS Institute requires careful consideration of devices to meet the organization’s needs efficiently. The primary objective is to establish a high-performance, reliable, and secure network infrastructure capable of supporting both current and future demands. This involves selecting devices that offer robust performance, advanced security features, scalability, and manageability. By integrating a Cisco 3725 router, HP Aruba switches, and Windows Server 2019, the proposed design ensures seamless connectivity, secure communication, and efficient resource management to support the institute’s administrative and academic activities effectively.
  </div>
 
 
-## Network Design
+# Network Design
 
 <p align="center">
   <img src="./Network%20Design.png" alt="Image description" width="700"/>
@@ -33,7 +55,7 @@
 #### Windows Server 2019
 - I have chosen “Windows Server 2019” to host critical services like Active Directory, DHCP and DNS. It centralizes resource management, streamlines IT operations and ensures efficient administration. Robust security measures protect sensitive data. And scalability accommodates future needs and guaranteeing a robust, secure and adaptable network infrastructure.
 
-### Network Management System : _Zabbix_
+#### Network Management System : _Zabbix_
 - I have chosen Zabbix as the network monitoring solution to ensure comprehensive oversight of the infrastructure. Zabbix provides real-time monitoring of network devices, servers, and applications, allowing for proactive identification and resolution of potential issues. Its robust alerting system notifies administrators of anomalies, minimizing downtime and enhancing reliability.
 
 ## Network Device Configurations
@@ -134,12 +156,12 @@ desgXswitch(config)# spanning-tree
 Configuration for switch
 ```bash 
  desgXswitch(config)# interface 1/1/X
-desgXswitch(config-if)# no routing
-desgXswitch(config-if)# vlan truck allowed all 
-desgXswitch(config-if)# spanning-tree link-type point-to-point
-desgXswitch(config-if)# spanning-tree loop-guard
-desgXswitch(config-if)# no shutdown
-desgXswitch(config-if)# exit
+ desgXswitch(config-if)# no routing
+ desgXswitch(config-if)# vlan truck allowed all 
+ desgXswitch(config-if)# spanning-tree link-type point-to-point
+ desgXswitch(config-if)# spanning-tree loop-guard
+ desgXswitch(config-if)# no shutdown
+ desgXswitch(config-if)# exit
 ```
 Configuration for interface that connects Root and Designated Switch
 ```bash 
@@ -159,3 +181,219 @@ switch(config-if-vlan)# no shutdown
 switch(config-if-vlan)# exit
 switch(config)# ip route 0.0.0.0/0 192.168.1.1
 ```
+
+# Network Monitoring Tool Deployment
+
+Nowadays, most organizations are using more complex networking environments, and it’s crucial to have a robust monitoring solution to ensure the stability and performance of their networks. Typically, network monitoring tools play an important role in allowing administrators to track key metrics, detect anomalies, and troubleshoot issues proactively.
+
+For the **SY-BCAS** network, as an Network Administrator, I have chosen **Zabbix** for monitoring purposes. Zabbix is a powerful and versatile tool for network monitoring and management. It offers a comprehensive set of features that enable administrators to monitor the health and performance of their network infrastructure effectively.
+
+When network issues occur, we use various troubleshooting techniques to identify them. Troubleshooting with Zabbix includes using **ping** or **traceroute** to diagnose connectivity problems by verifying if devices are able to communicate. Additionally, packet capture tools like **Wireshark** allow us to capture and analyze network traffic to identify possible abnormalities like packet loss or unusual patterns indicating issues.
+
+Moreover, logging and event monitoring play an important role in addressing network problems. By analyzing the logs recorded on devices, we can identify errors and warnings that may point to potential issues. Regular configuration reviews also help in preventing network problems caused by misconfigurations.
+
+* Add a device to Zabbix
+
+Click on right top corner `Create Host`
+<p align="center">
+  <img src="monitor/add_user/1.png" width="80%" />
+</p>
+
+Fill out the details of particular device.
+
+<p align="center">
+  <img src="monitor/add_user/2.png" width="80%" />
+</p>
+
+* Information that gathered by NMS from Deviced
+<p align="center">
+  <img src="monitor/info/1.png" width="49%" />
+ <img src="monitor/info/2.png" width="49%" />
+</p>
+
+* Dashboard how looks like when a problem occur and resolved
+<p align="center">
+  <img src="monitor/problem/1.png" width="49%" />
+ <img src="monitor/problem/2.png" width="49%" />
+</p>
+
+
+## Troubleshooting LAN and WAN Connectivity Issues
+
+To troubleshoot LAN and WAN connectivity issues across different networking layers, it is important to follow a step-by-step approach:
+
+1. **Physical Layer**:
+   - Initially, check the physical layer by examining if all cables are properly connected and ensure they are secure without any looseness.
+   - Check the status lights on devices like routers and switches to indicate proper connectivity. If there are any damaged cables, replace them to resolve physical connectivity issues.
+
+2. **Data Link Layer**:
+   - Use diagnostic commands to check for errors on network interfaces. These commands help identify potential issues with data transmission.
+   - Verify that the MAC address is correctly configured and ensure there are no conflicts.
+
+3. **Network Layer**:
+   - Verify IP address configurations, subnet masks, and gateways, as these settings are important for devices to communicate effectively.
+   - Use the `ping` command to test connectivity between devices to check if they can communicate at the network layer.
+   - Check routing tables on routers to confirm that routes are correctly configured and that there are no routing issues.
+
+4. **Transport Layer**:
+   - Examine if any restrictions or issues exist due to firewalls or ACLs (Access Control Lists). These security measures can block traffic and lead to connectivity problems. Ensuring these measures are correctly configured helps address transport layer issues.
+
+By following the steps of the OSI model to troubleshoot issues at different network layers, we can pinpoint LAN and WAN connectivity problems and resolve them to ensure smooth communication across networks.
+
+___
+
+## Documentation of Troubleshooting Methods
+
+The troubleshooting process begins by gathering information from various sources such as user reports, tickets, and monitoring tools. Assessing the impact of the problem on network operations and identifying the affected devices or services is essential to initiate the resolution process. Tools like network diagrams, configuration files, system logs, and records of recent changes help provide context and insight into potential causes.
+
+### Steps for Troubleshooting:
+
+1. **Initial Diagnosis**:
+   - Conduct initial checks to identify common problems like physical connection issues, misconfigurations, or hardware failure. Tools like `ping` and `traceroute` can be used to assess network problems.
+
+2. **Formulate a Hypothesis**:
+   - Based on gathered information, formulate a hypothesis about the probable cause of the issue. Research potential causes using vendor documentation and online resources to refine the hypothesis.
+
+3. **Test the Hypothesis**:
+   - Test the hypothesis by conducting further tests and analysis to gather additional data. Use diagnostic tools and techniques to verify the root cause of the issue and assess its impact on network functionality.
+
+4. **Develop a Plan of Action**:
+   - Create a structured strategy to address the identified root cause. Consider variables like impact, timeliness, severity, and resource availability when developing the plan.
+
+5. **Implement the Solution**:
+   - Execute the planned course of action, which may include making configuration changes, applying patches, or performing hardware replacements and repairs.
+
+6. **Verify the Solution**:
+   - After implementation, verify the network's functionality to ensure that the problem has been resolved. Perform comprehensive testing and performance monitoring to ensure system stability.
+
+7. **Documentation**:
+   - Document all steps completed during the diagnosis and resolution process. This includes test results, configuration modifications, and troubleshooting techniques. Preventive procedures and routine maintenance also help maintain network stability and reduce the likelihood of future issues.
+
+---
+
+## Evaluating Troubleshooting Methods for Enterprise-Wide Networking Issues
+
+For enterprise-wide networking issues, it is crucial to use a variety of troubleshooting methods to effectively identify and resolve root causes. Key methods for addressing potential issues include:
+
+1. **Ping and Traceroute**:
+   - Basic tools used to diagnose connectivity problems and trace the path of data packets through a network. `Ping` checks if devices can communicate, while `Traceroute` maps the route packets take. These tools are easy to use but might not uncover complex issues in large-scale networks.
+
+2. **Packet Capture [Wireshark]**:
+   - Wireshark is a powerful tool that allows network administrators to inspect network traffic at a granular level. Analyzing data packets with Wireshark helps identify anomalies, errors, and threats. It is highly effective in uncovering complex network issues.
+
+3. **Logging and Event Monitoring**:
+   - Continuous recording of network activities and events helps detect patterns, errors, and abnormalities indicative of network issues. Proper configuration and interpretation of log data are crucial for identifying recurring problems and security risks.
+
+4. **Configuration Review**:
+   - Reviewing network device configurations ensures they are correctly configured and optimized for performance and security. This method helps identify misconfigurations or security flaws that could lead to network issues.
+
+5. **Network Monitoring Tools**:
+   - Tools like **Zabbix** provide real-time visibility into the performance and health of network devices and services. They monitor key metrics, generate alerts for anomalies, and offer insights into network utilization and availability. Properly configured network monitoring tools are essential for proactively detecting and resolving issues.
+
+By integrating these methods into a cohesive troubleshooting strategy, network administrators can maintain network stability, reliability, and security. Ongoing training is essential for administrators to effectively utilize these methods.
+
+## Server Configuration
+### Setting Up Windows Server 2019 for Active Directory, DNS and DHCP.
+
+<p align="left">
+  <img src="install/1.png" width="49%" />
+  <img src="install/2.png" width="49%" />
+  <img src="install/3.png" width="49%" />
+  <img src="install/4.png" width="49%" />
+  <img src="install/5.png" width="49%" />
+  <img src="install/6.png" width="49%" />
+  <img src="install/7.png" width="49%" />
+  <img src="install/8.png" width="49%" />
+  <img src="install/9.png" width="49%" />
+  <img src="install/10.png" width="49%" />
+</p>
+
+___
+
+### Promoting Windows Server 2019 as Domain Controller
+<p align="left">
+  <img src="adpromot/1.png" width="49%" />
+  <img src="adpromot/2.png" width="49%" />
+  <img src="adpromot/3.png" width="49%" />
+  <img src="adpromot/4.png" width="49%" />
+  <img src="adpromot/5.png" width="49%" />
+  <img src="adpromot/6.png" width="49%" />
+  <img src="adpromot/7.png" width="49%" />
+  <img src="adpromot/8.png" width="49%" />
+  <img src="adpromot/9.png" width="49%" />
+</p>
+
+___
+
+### Active Directory
+#### Add Computer to Active Directory
+<p align="left">
+  <img src="ad/computer/1.png" width="49%" />
+  <img src="ad/computer/2.png" width="49%" />
+  <img src="ad/computer/3.png" width="49%" />
+  <img src="ad/computer/4.png" width="49%" />
+</p>
+
+___
+
+#### Add User to Active Directory
+<p align="left">
+  <img src="ad/user/1.png" width="49%" />
+  <img src="ad/user/2.png" width="49%" />
+  <img src="ad/user/3.png" width="49%" />
+  <img src="ad/user/4.png" width="49%" />
+</p>
+
+___
+
+### DNS Server Configuration
+#### Forward Lookup Zone Configuration
+<p align="left">
+  <img src="dns/forward/1.png" width="49%" />
+  <img src="dns/forward/2.png" width="49%" />
+  <img src="dns/forward/3.png" width="49%" />
+  <img src="dns/forward/4.png" width="49%" />
+  <img src="dns/forward/5.png" width="49%" />
+  <img src="dns/forward/6.png" width="49%" />
+  <img src="dns/forward/7.png" width="49%" />
+  <img src="dns/forward/8.png" width="49%" />
+</p>
+
+___
+
+#### Forward Lookup Zone Configuration
+<p align="left">
+  <img src="dns/reverse/1.png" width="49%" />
+  <img src="dns/reverse/2.png" width="49%" />
+  <img src="dns/reverse/3.png" width="49%" />
+  <img src="dns/reverse/4.png" width="49%" />
+  <img src="dns/reverse/5.png" width="49%" />
+  <img src="dns/reverse/6.png" width="49%" />
+  <img src="dns/reverse/7.png" width="49%" />
+  <img src="dns/reverse/8.png" width="49%" />
+  <img src="dns/reverse/9.png" width="49%" />
+  <img src="dns/reverse/10.png" width="49%" />
+  <img src="dns/reverse/11.png" width="49%" />
+  <img src="dns/reverse/12.png" width="49%" />
+  <img src="dns/reverse/13.png" width="49%" />
+  <img src="dns/reverse/14.png" width="49%" />
+ <img src="dns/reverse/15.png" width="49%" />
+ <img src="dns/reverse/16.png" width="49%" />
+ <img src="dns/reverse/1u.png" width="49%" />
+</p>
+
+___
+
+## DHCP Server Configuration 
+<p align="left">
+  <img src="dhcp/1.png" width="49%" />
+  <img src="dhcp/2.png" width="49%" />
+  <img src="dhcp/3.png" width="49%" />
+  <img src="dhcp/4.png" width="49%" />
+  <img src="dhcp/5.png" width="49%" />
+  <img src="dhcp/6.png" width="49%" />
+  <img src="dhcp/7.png" width="49%" />
+  <img src="dhcp/8.png" width="49%" />
+  <img src="dhcp/9.png" width="49%" />
+  <img src="dhcp/10.png" width="49%" />
+</p>
