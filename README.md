@@ -145,6 +145,8 @@ Here <secret> is typically a password for SNMP of the router.
   rootSwt(config-if)# no shutdown
 ```
 * Designated Switch Configuration
+
+Configuration for switch
 ```bash 
 desgXswitch# configuration terminal
 desgXswitch(config)# vlan XX
@@ -153,7 +155,7 @@ desgXswitch(config)# spanning-tree mode rpvst
 desgXswitch(config)# spanning-tree vlan 1,10
 desgXswitch(config)# spanning-tree
 ```
-Configuration for switch
+Configuration for interface that connects Root and Designated Switch
 ```bash 
  desgXswitch(config)# interface 1/1/X
  desgXswitch(config-if)# no routing
@@ -163,14 +165,14 @@ Configuration for switch
  desgXswitch(config-if)# no shutdown
  desgXswitch(config-if)# exit
 ```
-Configuration for interface that connects Root and Designated Switch
+Configuration for End Devices
 ```bash 
 desgXswitch(config)# interface 1/1/X
 desgXswitch(config-if)# no routing
 desgXswitch(config-if)# vlan XX
 desgXswitch(config)# exit
 ```
-Configuration for End Devices
+
 
 * Assigning IP address for Monitoring Switch
 ```bash 
