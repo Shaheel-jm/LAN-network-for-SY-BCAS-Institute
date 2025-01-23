@@ -1,5 +1,5 @@
 
-# LAN-network-for-SY-BCAS-Institute
+# LAN-network-for-Institute
 # Table of Contents
 
 1. [Introduction](#introduction)
@@ -23,7 +23,7 @@
     - [DHCP Derver Configuration](#dhcp-server-configuration)
 
 # Introduction
- <div align="justify"> Designing a Local Area Network (LAN) for the SY-BCAS Institute requires careful consideration of devices to meet the organization’s needs efficiently. The primary objective is to establish a high-performance, reliable, and secure network infrastructure capable of supporting both current and future demands. This involves selecting devices that offer robust performance, advanced security features, scalability, and manageability. By integrating a Cisco 3725 router, HP Aruba switches, and Windows Server 2019, the proposed design ensures seamless connectivity, secure communication, and efficient resource management to support the institute’s administrative and academic activities effectively.
+ <div align="justify"> Designing a Local Area Network (LAN) for the Institute requires careful consideration of devices to meet the organization’s needs efficiently. The primary objective is to establish a high-performance, reliable, and secure network infrastructure capable of supporting both current and future demands. This involves selecting devices that offer robust performance, advanced security features, scalability, and manageability. By integrating a Cisco 3725 router, HP Aruba switches, and Windows Server 2019, the proposed design ensures seamless connectivity, secure communication, and efficient resource management to support the institute’s administrative and academic activities effectively.
  </div>
 
 
@@ -188,7 +188,7 @@ switch(config)# ip route 0.0.0.0/0 192.168.1.1
 
 Nowadays, most organizations are using more complex networking environments, and it’s crucial to have a robust monitoring solution to ensure the stability and performance of their networks. Typically, network monitoring tools play an important role in allowing administrators to track key metrics, detect anomalies, and troubleshoot issues proactively.
 
-For the **SY-BCAS** network, as an Network Administrator, I have chosen **Zabbix** for monitoring purposes. Zabbix is a powerful and versatile tool for network monitoring and management. It offers a comprehensive set of features that enable administrators to monitor the health and performance of their network infrastructure effectively.
+For the **Institute** network, as an Network Administrator, I have chosen **Zabbix** for monitoring purposes. Zabbix is a powerful and versatile tool for network monitoring and management. It offers a comprehensive set of features that enable administrators to monitor the health and performance of their network infrastructure effectively.
 
 When network issues occur, we use various troubleshooting techniques to identify them. Troubleshooting with Zabbix includes using **ping** or **traceroute** to diagnose connectivity problems by verifying if devices are able to communicate. Additionally, packet capture tools like **Wireshark** allow us to capture and analyze network traffic to identify possible abnormalities like packet loss or unusual patterns indicating issues.
 
